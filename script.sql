@@ -109,3 +109,63 @@ CREATE TABLE Emprestimo (
     FOREIGN KEY (ID_Exemplar) REFERENCES Exemplar(ID_Exemplar),
     FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
+
+-- Adicionando valores padrão
+ALTER TABLE Editora MODIFY Cidade VARCHAR(100) NOT NULL DEFAULT 'Desconhecido';
+
+-- Criando relacionamento ternário entre Usuario, Livro e Reserva
+CREATE TABLE Reserva_Livro (
+    ID_Reserva INT,
+    ID_Livro INT,
+    Quantidade INT DEFAULT 1,
+    PRIMARY KEY (ID_Reserva, ID_Livro),
+    FOREIGN KEY (ID_Reserva) REFERENCES Reserva(ID_Reserva),
+    FOREIGN KEY (ID_Livro) REFERENCES Livro(ID_Livro)
+);
+
+-- Criando um Gatilho (Trigger) para impedir empréstimos duplicados do mesmo exemplar
+DELIMITER $$
+CREATE TRIGGER antes_inserir_emprestimo
+BEFORE INSERT ON Emprestimo
+FOR EACH ROW
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM Emprestimo
+        WHERE ID_Exemplar = NEW.ID_Exemplar AND Data_Devolucao IS NULL
+    ) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Este exemplar já está emprestado e não pode ser emprestado novamente.';
+    END IF;
+END $$
+DELIMITER ;
+
+-- Consulta avançada com GROUP BY e HAVING (Livros mais emprestados)
+SELECT Livro.Titulo, COUNT(Emprestimo.ID_Emprestimo) AS Total_Emprestimos
+FROM Emprestimo
+JOIN Exemplar ON Emprestimo.ID_Exemplar = Exemplar.ID_Exemplar
+JOIN Livro ON Exemplar.ID_Livro = Livro.ID_Livro
+GROUP BY Livro.Titulo
+HAVING COUNT(Emprestimo.ID_Emprestimo) > 5
+ORDER BY Total_Emprestimos DESC;
+
+-- Consulta usando ALL para encontrar editores que publicaram todos os livros de uma categoria específica
+SELECT Editora.Nome
+FROM Editora
+WHERE NOT EXISTS (
+    SELECT * FROM Livro_Categoria LC
+    WHERE LC.ID_Categoria = 1
+    AND NOT EXISTS (
+        SELECT * FROM Livro
+        WHERE Livro.ID_Livro = LC.ID_Livro AND Livro.ID_Editora = Editora.ID_Editora
+    )
+);
+
+-- Consulta usando ANY para encontrar livros publicados por pelo menos uma editora específica
+SELECT Livro.Titulo
+FROM Livro
+WHERE Livro.ID_Editora = ANY (
+    SELECT Editora.ID_Editora FROM Editora WHERE Editora.Nome LIKE 'Editora Exemplo%'
+);
+
+-- Consulta com ordenação dinâmica (ASC ou DESC)
+SELECT * FROM Livro ORDER BY Ano_Publicacao DESC;
