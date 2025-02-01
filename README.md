@@ -45,5 +45,20 @@ Este projeto é uma aplicação Python com interface gráfica para gerenciar um 
    ```
 ## Demonstração
 
-WIP
+### Adicionar
+- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
+- Segue o vídeo demonstrando a criação :
+
+### Remover
+- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
+- Segue o vídeo demonstrando a criação :
+
+### Atualizar
+- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
+- Segue o vídeo demonstrando a criação :
+
+### Pesquisar
+- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
+- Segue o vídeo demonstrando a criação :
+
 
