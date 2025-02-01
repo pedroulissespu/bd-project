@@ -259,3 +259,351 @@ def pesquisar_reserva(id_reserva):
     cursor.close()
     conexao.close()
     return reserva
+
+# Operações CRUD para a tabela Aluno
+def adicionar_aluno(id_usuario, curso, matricula):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Aluno (ID_Usuario, Curso, Matricula) VALUES (%s, %s, %s)"
+    valores = (id_usuario, curso, matricula)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_aluno(id_usuario):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Aluno WHERE ID_Usuario = %s"
+    valores = (id_usuario,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def atualizar_aluno(id_usuario, curso, matricula):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "UPDATE Aluno SET Curso = %s, Matricula = %s WHERE ID_Usuario = %s"
+    valores = (curso, matricula, id_usuario)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_aluno(id_usuario):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Aluno WHERE ID_Usuario = %s"
+    valores = (id_usuario,)
+    cursor.execute(sql, valores)
+    aluno = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return aluno
+
+# Operações CRUD para a tabela Professor
+def adicionar_professor(id_usuario, departamento, titulacao):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Professor (ID_Usuario, Departamento, Titulacao) VALUES (%s, %s, %s)"
+    valores = (id_usuario, departamento, titulacao)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_professor(id_usuario):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Professor WHERE ID_Usuario = %s"
+    valores = (id_usuario,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def atualizar_professor(id_usuario, departamento, titulacao):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "UPDATE Professor SET Departamento = %s, Titulacao = %s WHERE ID_Usuario = %s"
+    valores = (departamento, titulacao, id_usuario)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_professor(id_usuario):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Professor WHERE ID_Usuario = %s"
+    valores = (id_usuario,)
+    cursor.execute(sql, valores)
+    professor = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return professor
+
+# Operações CRUD para a tabela Categoria
+def adicionar_categoria(nome):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Categoria (Nome) VALUES (%s)"
+    valores = (nome,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_categoria(id_categoria):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Categoria WHERE ID_Categoria = %s"
+    valores = (id_categoria,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def atualizar_categoria(id_categoria, nome):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "UPDATE Categoria SET Nome = %s WHERE ID_Categoria = %s"
+    valores = (nome, id_categoria)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_categoria(id_categoria):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Categoria WHERE ID_Categoria = %s"
+    valores = (id_categoria,)
+    cursor.execute(sql, valores)
+    categoria = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return categoria
+
+# Operações CRUD para a tabela Livro_Autor
+def adicionar_livro_autor(id_livro, id_autor):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Livro_Autor (ID_Livro, ID_Autor) VALUES (%s, %s)"
+    valores = (id_livro, id_autor)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_livro_autor(id_livro, id_autor):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Livro_Autor WHERE ID_Livro = %s AND ID_Autor = %s"
+    valores = (id_livro, id_autor)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_livro_autor(id_livro, id_autor):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Livro_Autor WHERE ID_Livro = %s AND ID_Autor = %s"
+    valores = (id_livro, id_autor)
+    cursor.execute(sql, valores)
+    livro_autor = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return livro_autor
+
+# Operações CRUD para a tabela Livro_Categoria
+def adicionar_livro_categoria(id_livro, id_categoria):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Livro_Categoria (ID_Livro, ID_Categoria) VALUES (%s, %s)"
+    valores = (id_livro, id_categoria)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_livro_categoria(id_livro, id_categoria):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Livro_Categoria WHERE ID_Livro = %s AND ID_Categoria = %s"
+    valores = (id_livro, id_categoria)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_livro_categoria(id_livro, id_categoria):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Livro_Categoria WHERE ID_Livro = %s AND ID_Categoria = %s"
+    valores = (id_livro, id_categoria)
+    cursor.execute(sql, valores)
+    livro_categoria = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return livro_categoria
+
+# Operações CRUD para a tabela Disciplina
+def adicionar_disciplina(nome, curso):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Disciplina (Nome, Curso) VALUES (%s, %s)"
+    valores = (nome, curso)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_disciplina(id_disciplina):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Disciplina WHERE ID_Disciplina = %s"
+    valores = (id_disciplina,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def atualizar_disciplina(id_disciplina, nome, curso):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "UPDATE Disciplina SET Nome = %s, Curso = %s WHERE ID_Disciplina = %s"
+    valores = (nome, curso, id_disciplina)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_disciplina(id_disciplina):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Disciplina WHERE ID_Disciplina = %s"
+    valores = (id_disciplina,)
+    cursor.execute(sql, valores)
+    disciplina = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return disciplina
+
+# Operações CRUD para a tabela Livro_Disciplina
+def adicionar_livro_disciplina(id_livro, id_disciplina):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Livro_Disciplina (ID_Livro, ID_Disciplina) VALUES (%s, %s)"
+    valores = (id_livro, id_disciplina)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_livro_disciplina(id_livro, id_disciplina):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Livro_Disciplina WHERE ID_Livro = %s AND ID_Disciplina = %s"
+    valores = (id_livro, id_disciplina)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_livro_disciplina(id_livro, id_disciplina):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Livro_Disciplina WHERE ID_Livro = %s AND ID_Disciplina = %s"
+    valores = (id_livro, id_disciplina)
+    cursor.execute(sql, valores)
+    livro_disciplina = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return livro_disciplina
+
+# Operações CRUD para a tabela Fornecedor
+def adicionar_fornecedor(nome, telefone, email):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Fornecedor (Nome, Telefone, Email) VALUES (%s, %s, %s)"
+    valores = (nome, telefone, email)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_fornecedor(id_fornecedor):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Fornecedor WHERE ID_Fornecedor = %s"
+    valores = (id_fornecedor,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def atualizar_fornecedor(id_fornecedor, nome, telefone, email):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "UPDATE Fornecedor SET Nome = %s, Telefone = %s, Email = %s WHERE ID_Fornecedor = %s"
+    valores = (nome, telefone, email, id_fornecedor)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_fornecedor(id_fornecedor):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Fornecedor WHERE ID_Fornecedor = %s"
+    valores = (id_fornecedor,)
+    cursor.execute(sql, valores)
+    fornecedor = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return fornecedor
+
+# Operações CRUD para a tabela Emprestimo
+def adicionar_emprestimo(data_emprestimo, data_devolucao, id_exemplar):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Emprestimo (DataEmprestimo, DataDevolucao, ID_Exemplar) VALUES (%s, %s, %s)"
+    valores = (data_emprestimo, data_devolucao, id_exemplar)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def remover_emprestimo(id_emprestimo):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "DELETE FROM Emprestimo WHERE ID_Emprestimo = %s"
+    valores = (id_emprestimo,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def atualizar_emprestimo(id_emprestimo, data_emprestimo, data_devolucao, id_exemplar):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "UPDATE Emprestimo SET DataEmprestimo = %s, DataDevolucao = %s, ID_Exemplar = %s WHERE ID_Emprestimo = %s"
+    valores = (data_emprestimo, data_devolucao, id_exemplar, id_emprestimo)
+    cursor.execute(sql, valores)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def pesquisar_emprestimo(id_emprestimo):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "SELECT * FROM Emprestimo WHERE ID_Emprestimo = %s"
+    valores = (id_emprestimo,)
+    cursor.execute(sql, valores)
+    emprestimo = cursor.fetchone()
+    cursor.close()
+    conexao.close()
+    return emprestimo
