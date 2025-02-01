@@ -47,18 +47,24 @@ Este projeto é uma aplicação Python com interface gráfica para gerenciar um 
 
 ### Adicionar
 - Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
-- Segue o vídeo demonstrando a criação :
+- Segue o vídeo demonstrando a criação : <br />
+  ![Desktop-2025-02-01-4-58-38-PM_1](https://github.com/user-attachments/assets/908eb398-e3cd-45c5-9fb4-ef2ce808e65b)
+
 
 ### Remover
-- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
-- Segue o vídeo demonstrando a criação :
+- Para remover qualquer entidade no Sistema, só precisa preencher o ID daquilo que deseja remover, depois de preencher o ID clicar em Remover e vai aparecer uma janela confirmando a remoção daquela entidade. Caso tente buscar pela entidade que removeu, vai aparecer que não existe mais !
+- Segue o vídeo demonstrando a remoção : <br />
+  ![Desktop-2025-02-01-4-59-26-PM_1](https://github.com/user-attachments/assets/5ed9d4a3-a0ea-4efa-b89f-66338adf4b56)
+
 
 ### Atualizar
-- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
-- Segue o vídeo demonstrando a criação :
+- Para atualizar qualquer entidade no Sistema, só precisa preencher os campos que quer atualizar, depois de preencher os campos clicar em Atualizar e vai aparecer uma janela confirmando a atualização daquela entidade. Caso tente buscar pela entidade que atualizou, vai aparecer com os dados modificados !
+- Segue o vídeo demonstrando a criação : <br />
+  ![Desktop-2025-02-01-4-59-58-PM_1](https://github.com/user-attachments/assets/be6771b7-dcce-45b3-8474-b71aa3d55bde)
 
 ### Pesquisar
-- Para criar qualquer entidade no Sistema, só precisa preencher todos os campos obrigatórios, depois de preencher os campos clicar em adicionar e vai aparecer uma janela confirmando a criação daquela entidade.
-- Segue o vídeo demonstrando a criação :
+- Para pesquisar qualquer entidade no Sistema, só precisa preencher o ID daquilo que deseja pesquisar, depois de preencher o ID clicar em Pesquisar vai ser preenchido os campos com as informações da entidade com aquele ID.
+- Segue o vídeo demonstrando a criação : <br />
+  ![Desktop-2025-02-01-4-59-06-PM_1](https://github.com/user-attachments/assets/0358bde8-1c4e-42ed-bbd2-395089ee5ba2)
 
 
