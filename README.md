@@ -367,3 +367,7 @@ Agradecemos aos seguintes recursos e pessoas que ajudaram no desenvolvimento des
 - [MySQL Connector/Python Developer Guide](https://dev.mysql.com/doc/connector-python/en/)
 - [Tkinter Tutorial](https://realpython.com/python-gui-tkinter/)
 - [Python MySQL Tutorial](https://pynative.com/python-mysql-tutorial/)
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/pedroulissespu/bd-project/blob/main/LICENSE) para mais detalhes.
