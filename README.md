@@ -7,6 +7,60 @@ Este projeto é uma aplicação Python com interface gráfica para gerenciar um 
 - [Pedro Ulisses Pereira Castro Maia](https://github.com/pedroulissespu)
 - [Larissa Kelly Dantas Batista](https://github.com/larikelly)
 - [Andrei Carvalho Torres Portugal](https://github.com/AndreiPortugal)
+
+## Requisitos do Sistema
+
+- **Python**: Versão 3.12 ou superior.
+- **MySQL**: Versão 8.0 ou superior.
+- **Bibliotecas Python**: Verifique o arquivo `requirements.txt` para todas as dependências necessárias.
+- **Sistema Operacional**: Compatível com Windows, Linux e macOS.
+
+## Instalação
+
+1. **Instale o MySQL**:
+   - Se você não tem o MySQL instalado, siga as instruções no [site oficial do MySQL](https://dev.mysql.com/doc/refman/8.0/en/installing.html) para instalar o MySQL.
+   - Se estiver usando Docker, execute o seguinte comando para rodar o MySQL:
+     ```bash
+     docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
+     ```
+
+2. **Instale o Python**:
+   - Certifique-se de ter o Python 3.12 ou superior instalado. Você pode baixá-lo no [site oficial do Python](https://www.python.org/downloads/).
+
+3. **Instale as dependências**:
+   - Execute o seguinte comando para instalar as dependências necessárias:
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+4. **Execute o script de criação do banco de dados**:
+   - Execute o script `executar_script.py` para criar o banco de dados e as tabelas:
+     ```bash
+     python executar_script.py
+     ```
+
+5. **Execute a aplicação**:
+   - Para iniciar a interface gráfica, execute:
+     ```bash
+     python main.py
+     ```
+     
+## Solução de Problemas Frequentes
+
+- **Erro ao conectar ao MySQL**:
+  - Verifique se o MySQL está rodando e se o usuário e senha estão corretos.
+  - Certifique-se de que o MySQL está configurado para aceitar conexões externas, se necessário.
+
+- **Erro ao instalar dependências**:
+  - Certifique-se de que o Python está instalado corretamente e que o `pip` está atualizado.
+  - Se o erro persistir, tente instalar as dependências manualmente:
+    ```bash
+    pip install mysql-connector-python tkinter
+    ```
+
+- **Erro ao executar o script SQL**:
+  - Verifique se o arquivo `script.sql` está no diretório correto e se o MySQL está rodando.
+
 ## Preparação para executar
 
 1. Tenha em sua máquina instalado o MySQL ou se não tiver instalado e use o Docker, tenha o Docker rodando o MySQL.
@@ -36,6 +90,92 @@ Este projeto é uma aplicação Python com interface gráfica para gerenciar um 
     ```shell
    python executar_script.py
    ```
+## Explicação dos Arquivos e Estrutura do Projeto
+
+Aqui está uma breve explicação de cada arquivo presente no projeto e sua função:
+
+## 1. `script.sql`
+**Descrição:** Contém o script SQL para criar o banco de dados `Biblioteca` e todas as suas tabelas, incluindo as relações entre elas.
+
+**Função:**
+- Cria o banco de dados `Biblioteca`.
+- Define as tabelas: `Usuario`, `Aluno`, `Professor`, `Editora`, `Livro`, `Autor`, `Livro_Autor`, `Categoria`, `Livro_Categoria`, `Disciplina`, `Livro_Disciplina`, `Fornecedor`, `Exemplar`, `Reserva` e `Emprestimo`.
+- Define as chaves primárias, estrangeiras e relacionamentos entre as tabelas.
+
+**Uso:** Este script é executado automaticamente pelo arquivo `executar_script.py` para configurar o banco de dados.
+
+---
+
+## 2. `executar_script.py`
+**Descrição:** Arquivo Python responsável por executar o script SQL (`script.sql`) para criar o banco de dados e suas tabelas.
+
+**Função:**
+- Conecta ao MySQL.
+- Lê o arquivo `script.sql` e executa os comandos SQL para criar o banco de dados e as tabelas.
+- Cria um gatilho (*trigger*) que define automaticamente a data de devolução de um empréstimo como 14 dias após a data do empréstimo.
+
+**Uso:** Deve ser executado uma vez para configurar o banco de dados antes de rodar a aplicação principal.
+
+---
+
+## 3. `crud.py`
+**Descrição:** Contém as funções CRUD (*Create, Read, Update, Delete*) para interagir com o banco de dados.
+
+**Função:**
+- Define funções para adicionar, remover, atualizar e pesquisar registros em todas as tabelas do banco de dados.
+- Cada função se conecta ao banco de dados, executa a operação necessária e fecha a conexão.
+
+**Uso:** Este arquivo é importado pelo `main.py` para realizar as operações de banco de dados a partir da interface gráfica.
+
+---
+
+## 4. `main.py`
+**Descrição:** Arquivo principal da aplicação, que contém a interface gráfica do sistema de biblioteca.
+
+**Função:**
+- Cria uma interface gráfica usando a biblioteca `tkinter`.
+- Permite ao usuário interagir com o banco de dados através de abas para cada tabela.
+- Cada aba contém campos para adicionar, remover, atualizar e pesquisar registros.
+
+**Uso:** Este arquivo deve ser executado para iniciar a aplicação e interagir com o sistema de biblioteca.
+
+---
+
+## 5. `requirements.txt`
+**Descrição:** Lista as dependências necessárias para rodar o projeto.
+
+**Função:**
+- Especifica as bibliotecas Python necessárias, como `mysql-connector-python` para conectar ao MySQL e `tkinter` para a interface gráfica.
+
+**Uso:** Execute `pip install -r requirements.txt` para instalar todas as dependências necessárias.
+
+---
+
+## 6. `README.md`
+**Descrição:** Contém a documentação do projeto.
+
+**Função:**
+- Explica como configurar e executar o projeto.
+- Documenta cada aba da interface gráfica e os campos que precisam ser preenchidos.
+- Fornece exemplos de uso e observações importantes.
+
+**Uso:** Serve como guia para quem está utilizando ou revisando o projeto.
+
+---
+
+## Como os Arquivos se Relacionam
+
+### **Configuração do Banco de Dados:**
+- O `executar_script.py` executa o `script.sql` para criar o banco de dados e as tabelas.
+
+### **Operações de Banco de Dados:**
+- O `crud.py` contém as funções que realizam as operações CRUD no banco de dados.
+
+### **Interface Gráfica:**
+- O `main.py` usa as funções do `crud.py` para permitir que o usuário interaja com o banco de dados através de uma interface gráfica.
+
+### **Dependências:**
+- O `requirements.txt` garante que todas as bibliotecas necessárias estejam instaladas para rodar o projeto.
 
 ## Como executar
 
@@ -186,3 +326,44 @@ Este projeto é uma aplicação Python com interface gráfica para gerenciar um 
 ### Observações
 - Certifique-se de que os IDs fornecidos existam nas tabelas relacionadas.
 - As datas devem ser inseridas no formato `YYYY-MM-DD`.
+
+## Contribuição
+
+Se você quiser contribuir para este projeto, siga os passos abaixo:
+
+1. Faça um fork do repositório.
+2. Crie uma branch para sua feature ou correção de bug:
+   ```bash
+   git checkout -b minha-feature
+3. Faça as alterações necessárias e commit:
+   ```bash
+   git commit -m "Adicionando nova funcionalidade"
+4. Envie as alterações para o repositório remoto:
+   ```bash
+   git push origin minha-feature
+5. Abra um Pull Request no GitHub.
+
+## Contato
+
+Em caso de dúvidas ou problemas, entre em contato com a equipe do projeto:
+
+- **Pedro Ulisses Pereira Castro Maia**: [pedroulissespu](https://github.com/pedroulissespu)
+- **Larissa Kelly Dantas Batista**: [larikelly](https://github.com/larikelly)
+- **Andrei Carvalho Torres Portugal**: [AndreiPortugal](https://github.com/AndreiPortugal)
+
+## Agradecimentos
+
+Agradecemos aos seguintes recursos e pessoas que ajudaram no desenvolvimento deste projeto:
+
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+- [Python Documentation](https://docs.python.org/3/)
+- [Tkinter Documentation](https://docs.python.org/3/library/tkinter.html)
+- [**Pedro Ulisses Pereira Castro Maia**](https://github.com/pedroulissespu)
+- [**Larissa Kelly Dantas Batista**](https://github.com/larikelly)
+- [**Andrei Carvalho Torres Portugal**](https://github.com/AndreiPortugal)
+
+## Referências
+
+- [MySQL Connector/Python Developer Guide](https://dev.mysql.com/doc/connector-python/en/)
+- [Tkinter Tutorial](https://realpython.com/python-gui-tkinter/)
+- [Python MySQL Tutorial](https://pynative.com/python-mysql-tutorial/)
