@@ -613,7 +613,8 @@ def adicionar_usuarios_em_massa(usuarios):
     conexao = conectar_banco()
     cursor = conexao.cursor()
     sql = "INSERT INTO Usuario (Nome, Email, Tipo) VALUES (%s, %s, %s)"
-    cursor.executemany(sql, usuarios)
+    valores = [(u['nome'], u['email'], u['tipo']) for u in usuarios]
+    cursor.executemany(sql, valores)
     conexao.commit()
     cursor.close()
     conexao.close()
