@@ -607,3 +607,101 @@ def pesquisar_emprestimo(id_emprestimo):
     cursor.close()
     conexao.close()
     return emprestimo
+
+# Manipulação em massa para Usuário
+def adicionar_usuarios_em_massa(usuarios):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    sql = "INSERT INTO Usuario (Nome, Email, Tipo) VALUES (%s, %s, %s)"
+    cursor.executemany(sql, usuarios)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+# Função genérica de busca por substring para o Livro
+def buscar_livros_por_titulo(substring):
+    conexao = conectar_banco()
+    cursor = conexao.cursor(dictionary=True)
+    sql = "SELECT * FROM Livro WHERE LOWER(Titulo) LIKE LOWER(%s)"
+    cursor.execute(sql, (f"%{substring}%",))
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return resultados
+
+# Consulta 1: Agrupamento com COUNT e INNER JOIN
+def livros_por_editora():
+    conexao = conectar_banco()
+    cursor = conexao.cursor(dictionary=True)
+    sql = """
+    SELECT Editora.Nome, COUNT(Livro.ID_Livro) AS Total 
+    FROM Editora
+    INNER JOIN Livro ON Editora.ID_Editora = Livro.ID_Editora 
+    GROUP BY Editora.Nome
+    """
+    cursor.execute(sql)
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return resultados
+
+# Consulta 2: LEFT JOIN e filtro com HAVING
+def editoras_com_mais_de_5_livros():
+    conexao = conectar_banco()
+    cursor = conexao.cursor(dictionary=True)
+    sql = """
+    SELECT Editora.Nome, COUNT(Livro.ID_Livro) AS Total 
+    FROM Editora
+    LEFT JOIN Livro ON Editora.ID_Editora = Livro.ID_Editora 
+    GROUP BY Editora.Nome
+    HAVING Total > 5
+    """
+    cursor.execute(sql)
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return resultados
+
+# Consulta usando ALL
+# Função para consulta com ANY
+def livros_mais_recentes_que_qualquer(ano):
+    conexao = conectar_banco()
+    cursor = conexao.cursor(dictionary=True)
+    sql = """
+    SELECT * FROM Livro 
+    WHERE AnoPublicacao > ANY (
+        SELECT AnoPublicacao FROM Livro WHERE AnoPublicacao < %s
+    )
+    """
+    cursor.execute(sql, (ano,))
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return resultados
+
+# Função para ordenação dinâmica
+def listar_livros_ordenados(campo='Titulo', ordem='ASC'):
+    conexao = conectar_banco()
+    cursor = conexao.cursor(dictionary=True)
+    sql = f"SELECT * FROM Livro ORDER BY {campo} {ordem}"
+    cursor.execute(sql)
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return resultados
+
+# Consulta usando ALL
+def livros_mais_recentes_que_todos(ano):
+    conexao = conectar_banco()
+    cursor = conexao.cursor(dictionary=True)
+    sql = """
+    SELECT * FROM Livro 
+    WHERE AnoPublicacao > ALL (
+        SELECT AnoPublicacao FROM Livro WHERE AnoPublicacao < %s
+    )
+    """
+    cursor.execute(sql, (ano,))
+    resultados = cursor.fetchall()
+    cursor.close()
+    conexao.close()
+    return resultados
