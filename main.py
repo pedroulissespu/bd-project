@@ -1,3 +1,4 @@
+import json
 import tkinter as tk
 from tkinter import ttk, messagebox
 from crud import *
@@ -992,6 +993,34 @@ def filtrar_quantificador_gui():
     exibir_resultados(resultados)
 
 tk.Button(aba_consultas, text="Filtrar", command=filtrar_quantificador_gui).grid(row=2, column=3)
+
+# Adicionar seção para inserção em massa
+tk.Label(aba_usuario, text="Inserção em Massa (JSON):").grid(row=6, column=0)
+texto_json = tk.Text(aba_usuario, height=10, width=40)
+texto_json.grid(row=7, column=0, columnspan=2)
+
+
+def adicionar_usuarios_em_massa_gui():
+    try:
+        # Ler o JSON do campo de texto
+        dados_json = texto_json.get("1.0", tk.END).strip()
+        if not dados_json:
+            messagebox.showerror("Erro", "O campo JSON está vazio!")
+            return
+
+        # Converter JSON para lista de dicionários
+        usuarios = json.loads(dados_json)
+
+        # Chamar a função CRUD para inserção em massa
+        adicionar_usuarios_em_massa(usuarios)
+        messagebox.showinfo("Sucesso", "Usuários adicionados com sucesso!")
+    except json.JSONDecodeError:
+        messagebox.showerror("Erro", "Formato JSON inválido!")
+    except Exception as e:
+        messagebox.showerror("Erro", f"Erro ao adicionar usuários: {str(e)}")
+
+
+tk.Button(aba_usuario, text="Adicionar em Massa", command=adicionar_usuarios_em_massa_gui).grid(row=8, column=0)
 
 # Iniciar a interface gráfica
 janela.mainloop()
