@@ -930,5 +930,68 @@ tk.Button(aba_livro_disciplina, text="Adicionar", command=adicionar_livro_discip
 tk.Button(aba_livro_disciplina, text="Remover", command=remover_livro_disciplina_gui).grid(row=2, column=1)
 tk.Button(aba_livro_disciplina, text="Pesquisar", command=pesquisar_livro_disciplina_gui).grid(row=3, column=0)
 
+aba_consultas = ttk.Frame(abas)
+abas.add(aba_consultas, text="Consultas Avançadas")
+
+# Treeview para exibir resultados
+tree = ttk.Treeview(aba_consultas, columns=("ID", "Título", "Ano", "Editora"), show='headings')
+tree.heading("ID", text="ID")
+tree.heading("Título", text="Título")
+tree.heading("Ano", text="Ano")
+tree.heading("Editora", text="Editora")
+tree.grid(row=4, column=0, columnspan=4, sticky="nsew")
+
+def exibir_resultados(dados):
+    for item in tree.get_children():
+        tree.delete(item)
+    for linha in dados:
+        tree.insert("", "end", values=linha)
+
+# Busca por substring
+tk.Label(aba_consultas, text="Buscar Livros (Título):").grid(row=0, column=0)
+entry_substring = tk.Entry(aba_consultas)
+entry_substring.grid(row=0, column=1)
+
+def buscar_substring_gui():
+    substring = entry_substring.get()
+    resultados = buscar_livros_por_titulo(substring)  # Função CRUD já implementada
+    # Exibir resultados no Treeview (implementar função de exibição)
+    exibir_resultados(resultados)
+
+tk.Button(aba_consultas, text="Buscar", command=buscar_substring_gui).grid(row=0, column=2)
+
+# Ordenação dinâmica
+tk.Label(aba_consultas, text="Ordenar Livros por:").grid(row=1, column=0)
+campo_ordenacao = ttk.Combobox(aba_consultas, values=["Titulo", "AnoPublicacao"])
+campo_ordenacao.grid(row=1, column=1)
+ordem_ordenacao = ttk.Combobox(aba_consultas, values=["ASC", "DESC"])
+ordem_ordenacao.grid(row=1, column=2)
+
+def ordenar_gui():
+    campo = campo_ordenacao.get()
+    ordem = ordem_ordenacao.get()
+    resultados = listar_livros_ordenados(campo, ordem)  # Função CRUD parametrizada
+    exibir_resultados(resultados)
+
+tk.Button(aba_consultas, text="Ordenar", command=ordenar_gui).grid(row=1, column=3)
+
+# Consultas com ANY/ALL
+tk.Label(aba_consultas, text="Filtrar Livros (Ano >):").grid(row=2, column=0)
+entry_ano_filtro = tk.Entry(aba_consultas)
+entry_ano_filtro.grid(row=2, column=1)
+quantificador = ttk.Combobox(aba_consultas, values=["ANY", "ALL"])
+quantificador.grid(row=2, column=2)
+
+def filtrar_quantificador_gui():
+    ano = int(entry_ano_filtro.get())
+    opcao = quantificador.get()
+    if opcao == "ANY":
+        resultados = livros_mais_recentes_que_qualquer(ano)  # Função CRUD com ANY
+    else:
+        resultados = livros_mais_recentes_que_todos(ano)  # Função CRUD com ALL
+    exibir_resultados(resultados)
+
+tk.Button(aba_consultas, text="Filtrar", command=filtrar_quantificador_gui).grid(row=2, column=3)
+
 # Iniciar a interface gráfica
 janela.mainloop()
